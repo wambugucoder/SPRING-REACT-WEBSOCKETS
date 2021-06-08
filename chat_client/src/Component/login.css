@@ -1,0 +1,8 @@
+.nametag{
+    margin-top:9rem;
+    padding-left: 64px;
+    padding-right: 64px;
+    width: 40%;
+    justify-content: center;
+    align-items: center;   
+}
