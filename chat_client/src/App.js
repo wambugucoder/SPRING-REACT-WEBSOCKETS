@@ -1,8 +1,8 @@
-import client from 'react-stomp';
 import SockJsClient from 'react-stomp';
 import React, {Component} from 'react';
 import './App.css';
 import Login from './Component/Login';
+import ChatRoom from './Component/ChatRoom';
 
 class App extends Component {
   constructor(props) {
@@ -25,13 +25,13 @@ addUserToChat=(value)=>{
       JSON.stringify({sender: value.toString(),  messageType: 'JOIN'}));
     }
 
-handleMessageSend = () => {
+handleMessageSend = (value) => {
       this.clientRef.sendMessage("/app/chat.sendMessage",
-          JSON.stringify({sender: this.state.username, content: "booo", messageType: 'CHAT'}));
-      this.setState({messageText: ''})
+          JSON.stringify({sender: this.state.username, content:value, messageType: 'CHAT'}));
+    //  this.setState({messageText: ''})
   
-
  }
+
   render(){
   return (
     <div className="App">
@@ -42,17 +42,13 @@ handleMessageSend = () => {
          }}/>
 
    
-    <div>
+    <div className="container">
       {this.state.username===null?
        <Login onSearch={this.addUserToChat} />
       :
-      <div>
-        <div>adwawdawd</div>
-        <Login onSearch={this.handleMessageSend} />
-      {this.state.messages.map((eachstuff)=>{
-        return <div>{eachstuff.content}</div>
-      })}
-      </div>
+      
+       <ChatRoom messages={this.state.messages} onChat={this.handleMessageSend}/>
+      
      
   }
     </div>
